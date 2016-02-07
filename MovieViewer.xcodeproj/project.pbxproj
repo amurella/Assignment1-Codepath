@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD10E1221C66D65700E3373B /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD10E1211C66D65700E3373B /* DetailViewController.swift */; };
 		CD65B2535A61071631D13307 /* Pods_MovieViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF7194C1CA230A6C9DA3B928 /* Pods_MovieViewer.framework */; };
 		CDDF320C1C5D6E8A0075DD9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDF320B1C5D6E8A0075DD9B /* AppDelegate.swift */; };
 		CDDF32111C5D6E8A0075DD9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDDF320F1C5D6E8A0075DD9B /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		65246BB0BF42B6CC21AF154C /* Pods-MovieViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieViewer/Pods-MovieViewer.release.xcconfig"; sourceTree = "<group>"; };
+		CD10E1211C66D65700E3373B /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		CDDF32081C5D6E8A0075DD9B /* MovieViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDDF320B1C5D6E8A0075DD9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDDF32101C5D6E8A0075DD9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				CDDF32211C5D6FAB0075DD9B /* MoviesViewController.swift */,
+				CD10E1211C66D65700E3373B /* DetailViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				CDDF320C1C5D6E8A0075DD9B /* AppDelegate.swift in Sources */,
 				CDDF32221C5D6FAB0075DD9B /* MoviesViewController.swift in Sources */,
 				CDDF32251C5DAECB0075DD9B /* MovieCell.swift in Sources */,
+				CD10E1221C66D65700E3373B /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,8 +13,9 @@ import MBProgressHUD
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    
+    var endpoint: String!
     var movies: [NSDictionary]?
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.delegate = self
         
         // Initialize a UIRefreshControl
-        let refreshControl = UIRefreshControl()
+ 
+
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
         
         tableView.insertSubview(refreshControl, atIndex: 0)
@@ -31,7 +33,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         // Do any additional setup after loading the view.
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+        let url = NSURL(string: "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
         let request = NSURLRequest(
             URL: url!,
             cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
@@ -54,8 +56,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                         data, options:[]) as? NSDictionary {
                             print("response: \(responseDictionary)")
                             
-                            self.movies = responseDictionary["results"] as! [NSDictionary]
+                            self.movies = responseDictionary["results"] as? [NSDictionary]
                             self.tableView.reloadData() //reload after network request
+                            self.refreshControl.endRefreshing()
                             
                     }
                 }
@@ -88,18 +91,21 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell //downcast to become MovieCell
         
         let movie = movies![indexPath.row]
-        let title = movie["title"] as! String  //!force casts and reads in value at title
-        let overview = movie["overview"] as! String
-        
-        let baseURL = "http://image.tmdb.org/t/p/w342"
-        let posterPath = movie["poster_path"] as! String
-        let imageURL = NSURL(string: baseURL + posterPath)
-        
-        
+        let title = movie["title"] as? String  //!force casts and reads in value at title
+        let overview = movie["overview"] as? String
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
-        cell.posterView.setImageWithURL(imageURL!)
         
+        let baseURL = "http://image.tmdb.org/t/p/w342"
+        if let posterPath = movie["poster_path"] as? String
+        {
+            let imageURL = NSURL(string: baseURL + posterPath)
+            cell.posterView.setImageWithURL(imageURL!)
+        }
+        cell.selectionStyle = .None
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.redColor()
+        cell.selectedBackgroundView = backgroundView
         
         print("row \(indexPath.row)")
         return cell
@@ -111,6 +117,17 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         // Tell the refreshControl to stop spinning
         refreshControl.endRefreshing()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPathForCell(cell)
+        let movie = movies![indexPath!.row]
+        
+        let detailViewController = segue.destinationViewController as! DetailViewController
+        detailViewController.movie = movie
+        print("prepare for segue")
     }
 
 }
