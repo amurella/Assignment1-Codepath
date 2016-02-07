@@ -102,14 +102,21 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             let imageURL = NSURL(string: baseURL + posterPath)
             cell.posterView.setImageWithURL(imageURL!)
         }
-        cell.selectionStyle = .None
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor.redColor()
-        cell.selectedBackgroundView = backgroundView
+        
+        
+        
+        
+        func setSelected(selected: Bool, animated: Bool) {
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = UIColor.redColor()
+            cell.selectedBackgroundView = backgroundView
+        }
         
         print("row \(indexPath.row)")
         return cell
     }
+    
+    
     
     func refreshControlAction(refreshControl: UIRefreshControl) {
         // Reload the tableView now that there is new data
